@@ -1,0 +1,1 @@
+export default function Page(){return <><span className="eyebrow">Bookmarks</span><h1 className="section-title">Saved tuitions</h1><div className="empty">Save tuition cards to build your shortlist.</div></>}
