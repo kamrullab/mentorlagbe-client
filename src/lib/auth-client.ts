@@ -1,1 +1,6 @@
-import{createAuthClient}from"better-auth/react";const apiUrl=process.env.NEXT_PUBLIC_API_URL||"http://localhost:5000/api";export const authClient=createAuthClient({baseURL:apiUrl.replace(/\/api\/?$/,"") ,basePath:"/api/better-auth",fetchOptions:{credentials:"include"}});
+import{createAuthClient}from"better-auth/react";
+
+export const authClient=createAuthClient({
+  basePath:"/api/backend/better-auth",
+  fetchOptions:{credentials:"include"},
+});

@@ -1,1 +1,17 @@
-"use client";import{Check}from"lucide-react";import{useAuth}from"@/components/auth-provider";import{api}from"@/lib/api";import{toast}from"sonner";const plans=[{name:"Free",amount:"$0",text:"A focused start",items:["Browse every approved tuition","Apply or publish up to 2 posts","Core dashboard tools"]},{name:"Pro Student",amount:"$10",text:"Move faster with priority",items:["Unlimited applications","Priority booking","Saved tuitions and progress tools"]},{name:"Pro Tutor",amount:"$15",text:"Grow without limits",items:["Unlimited tuition posts","Verified Pro badge","Enhanced applicant tools"]}];export default function Pricing(){const{user}=useAuth();async function checkout(){if(!user)return toast.error("Please sign in first");try{const r=await api<{url:string}>("/payments/checkout",{method:"POST"});location.href=r.url}catch(e){toast.error((e as Error).message)}}return <div className="container section"><header className="page-hero"><span className="eyebrow">Clear, simple pricing</span><h1>Invest in momentum.</h1><p className="section-sub">Start free. Upgrade only when the extra reach matters.</p></header><div className="pricing-grid">{plans.map((p,i)=><div className={`price-card ${i===1?"featured":""}`} key={p.name}><span className="pill">{p.text}</span><h3>{p.name}</h3><div className="amount">{p.amount}<small>/once</small></div><ul>{p.items.map(x=><li key={x}><Check size={16}/> {x}</li>)}</ul>{i?<button className="btn" onClick={checkout}>Subscribe with Stripe</button>:<a className="btn ghost" href="/sign-up">Start free</a>}</div>)}</div></div>}
+"use client";
+import{Check}from"lucide-react";
+import{useAuth}from"@/components/auth-provider";
+import{api}from"@/lib/api";
+import{toast}from"sonner";
+
+const plans=[
+  {name:"Free",amount:"$0",text:"A focused start",items:["Browse every approved tuition","Apply or publish up to 2 posts","Core dashboard tools"]},
+  {name:"Pro Student",amount:"$10",text:"Move faster with priority",items:["Unlimited applications","Priority booking","Saved tuitions and progress tools"]},
+  {name:"Pro Tutor",amount:"$15",text:"Grow without limits",items:["Unlimited tuition posts","Verified Pro badge","Enhanced applicant tools"]},
+];
+
+export default function Pricing(){
+  const{user}=useAuth();
+  async function checkout(){if(!user)return toast.error("Please sign in first");try{const r=await api<{url:string}>("/payments/checkout",{method:"POST"});location.href=r.url}catch(e){toast.error((e as Error).message)}}
+  return <div className="container section"><header className="page-hero"><span className="eyebrow">Clear, simple pricing</span><h1>Invest in momentum.</h1><p className="section-sub">Start free. Upgrade only when the extra reach matters.</p></header><div className="pricing-grid">{plans.map((p,i)=><div className={`price-card ${i===1?"featured":""}`} key={p.name}><span className="pill">{p.text}</span><h3>{p.name}</h3><div className="amount">{p.amount}<small>{i?"/month":""}</small></div><ul>{p.items.map(x=><li key={x}><Check size={16}/> {x}</li>)}</ul>{i?<button className="btn" onClick={checkout}>Subscribe with Stripe</button>:<a className="btn ghost" href="/sign-up">Start free</a>}</div>)}</div></div>
+}
