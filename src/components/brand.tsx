@@ -1,0 +1,1 @@
+import Link from"next/link";import{GraduationCap}from"lucide-react";export function Brand(){return <Link href="/" className="brand"><span className="brand-mark"><GraduationCap size={21}/></span><span>Mentor<span>Lagbe</span></span></Link>}
