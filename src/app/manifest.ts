@@ -1,0 +1,2 @@
+import type{MetadataRoute}from"next";
+export default function manifest():MetadataRoute.Manifest{return{name:"MentorLagbe - Smart Tuition and Mentorship",short_name:"MentorLagbe",description:"Find trusted tutors and personalized mentorship opportunities.",start_url:"/",display:"standalone",background_color:"#f7f5ef",theme_color:"#0b7a6c",categories:["education","productivity"],icons:[{src:"/favicon.ico",sizes:"any",type:"image/x-icon"}]}}
