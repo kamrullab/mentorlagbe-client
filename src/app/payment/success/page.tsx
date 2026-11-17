@@ -1,0 +1,1 @@
+import Link from"next/link";export default function Success(){return <div className="empty"><span className="eyebrow">Payment complete</span><h1 className="section-title">Welcome to Pro.</h1><p>Your account upgrade is being synchronized securely.</p><Link className="btn" href="/dashboard/profile">View your profile</Link></div>}

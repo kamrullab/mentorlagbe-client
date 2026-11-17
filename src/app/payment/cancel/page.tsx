@@ -1,0 +1,1 @@
+import Link from"next/link";export default function Cancel(){return <div className="empty"><span className="eyebrow">No charge made</span><h1 className="section-title">Checkout cancelled.</h1><p>Your current plan remains unchanged.</p><Link className="btn" href="/pricing">Back to plans</Link></div>}
