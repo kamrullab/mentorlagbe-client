@@ -1,0 +1,1 @@
+export default function Loading(){return <div className="container section"><div className="skeleton" style={{height:65,borderRadius:15,marginBottom:25}}/><div className="cards">{[1,2,3].map(i=><div key={i} className="tuition-card skeleton"/>)}</div></div>}

@@ -1,0 +1,1 @@
+"use client";export default function ErrorPage({reset}:{reset:()=>void}){return <div className="empty"><h1 className="section-title">Something went off syllabus.</h1><p>Please retry the page.</p><button className="btn" onClick={reset}>Try again</button></div>}
