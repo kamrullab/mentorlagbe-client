@@ -1,32 +1,115 @@
-# MentorLagbe Client
+<div align="center">
 
-Next.js 16 App Router frontend for MentorLagbe, a role-based tuition and mentorship marketplace.
+# 🎓 MentorLagbe
 
-**Live site:** https://mentorlagbe.vercel.app
+### Smart Tuition & Mentorship Platform
 
-## Features
+[![Live Site](https://img.shields.io/badge/Live_Site-0B7A6C?style=for-the-badge&logo=vercel&logoColor=white)](https://mentorlagbe.vercel.app)
+[![Next.js](https://img.shields.io/badge/Next.js_16-111111?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![BetterAuth](https://img.shields.io/badge/BetterAuth-5B4BFF?style=for-the-badge&logo=auth0&logoColor=white)](https://www.better-auth.com/)
+[![Stripe](https://img.shields.io/badge/Stripe_Sandbox-635BFF?style=for-the-badge&logo=stripe&logoColor=white)](https://stripe.com/)
 
-- Responsive original landing page, tuition discovery, server search/filter, details and applications
-- Student, tutor and admin dashboards
-- JWT session restoration, role-aware navigation and protected dashboard layout
-- Monthly Stripe Sandbox Pro subscriptions, direct ImgBB uploads, light/dark theme, loading and error states
-- Same-origin production API proxy for reliable BetterAuth cookies and session restoration
+**Find trusted tutors, publish tuition opportunities, manage applications, and grow through personalized mentorship.**
 
-## Local setup
+[🌐 Visit Live Website](https://mentorlagbe.vercel.app) · [⚙️ Server Repository](https://github.com/kamrullab/mentorlagbe-server)
 
-1. Copy `.env.example` to `.env.local` and configure the API and ImgBB values.
-2. Run `npm install` then `npm run dev`.
-3. Run `npm run lint && npm run build` before deployment.
+</div>
 
-## Production environment
+---
 
-- `NEXT_PUBLIC_API_URL=https://mentorlagbe-serverbd.vercel.app/api`
-- `NEXT_PUBLIC_IMGBB_API_KEY=<your ImgBB API key>`
+## ✨ Overview
 
-The API URL is used by the Next.js rewrite and browser requests stay on the frontend origin. Configure the values for Production, Preview and Development in Vercel, then redeploy after changing them.
+MentorLagbe is a production-ready, role-based EdTech marketplace connecting Students, Tutors, and Admins. Students can discover and apply for approved tuition listings, Tutors can publish and manage learning opportunities, and Admins can moderate the complete platform.
 
-## Main packages
+## 🚀 Key Features
 
-Next.js, React, BetterAuth, TanStack Query, Sonner, next-themes, Lucide React, Tailwind CSS and Zod.
+- Student, Tutor, and Admin authentication with BetterAuth and JWT
+- Responsive role-based dashboards and protected navigation
+- Server-side tuition search, filtering, and pagination
+- Student applications, saved tuitions, reviews, and ratings
+- Tutor tuition CRUD, applicant management, and free-plan quota
+- Admin user management, tuition moderation, revenue, and transactions
+- Direct profile and banner image uploads through ImgBB
+- Monthly Stripe Sandbox Pro subscriptions
+- Light and dark themes, toast notifications, loading states, and error pages
+- Reliable Vercel integration through a same-origin API proxy
 
-Admin and quick-test credentials are configured privately and should be supplied in the assignment submission form, not committed to a public repository. Never commit `.env.local`.
+## 💳 Stripe Sandbox Demo
+
+> [!IMPORTANT]
+> The following card is a Stripe test card. Never enter a real card on the demo checkout.
+
+| Checkout field | Test value |
+|---|---|
+| Card number | `4242 4242 4242 4242` |
+| Expiry date | `12 / 30` |
+| CVC | `123` |
+| Cardholder name | `Kamrul Hossain` |
+
+Student Pro costs **$10/month** and Tutor Pro costs **$15/month** in Stripe Sandbox mode.
+
+## 🧰 Technology
+
+| Area | Tools |
+|---|---|
+| Framework | Next.js 16 App Router, React 19 |
+| Language | TypeScript |
+| Authentication | BetterAuth, JWT |
+| Data fetching | TanStack Query |
+| Styling | Tailwind CSS, custom responsive CSS, next-themes |
+| UI feedback | Sonner, Lucide React |
+| Media and payments | ImgBB, Stripe Sandbox |
+| Validation | Zod |
+
+## 🏃 Local Setup
+
+```bash
+git clone https://github.com/kamrullab/mentorlagbe-client.git
+cd mentorlagbe-client
+npm install
+```
+
+Copy `.env.example` to `.env.local`:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5000/api
+NEXT_PUBLIC_IMGBB_API_KEY=your_imgbb_api_key
+```
+
+Run the application:
+
+```bash
+npm run dev
+```
+
+Quality checks:
+
+```bash
+npm run lint
+npm run build
+```
+
+## 🌍 Production Configuration
+
+```env
+NEXT_PUBLIC_API_URL=https://mentorlagbe-serverbd.vercel.app/api
+NEXT_PUBLIC_IMGBB_API_KEY=your_imgbb_api_key
+```
+
+Configure the variables in Vercel and redeploy after any environment change. Admin and quick-test account credentials should be supplied privately in the assignment submission form, never committed to a public repository.
+
+## 🔗 Project Links
+
+- **Live site:** https://mentorlagbe.vercel.app
+- **Client repository:** https://github.com/kamrullab/mentorlagbe-client
+- **Server repository:** https://github.com/kamrullab/mentorlagbe-server
+- **API health:** https://mentorlagbe-serverbd.vercel.app/api/health
+
+---
+
+<div align="center">
+
+Built with care for better learning connections.
+
+</div>
