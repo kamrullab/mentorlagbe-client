@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     const apiUrl = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api").replace(/\/$/, "");
     return [{ source: "/api/backend/:path*", destination: `${apiUrl}/:path*` }];
   },
-  images: { remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }, { protocol: "https", hostname: "i.ibb.co" }, { protocol: "https", hostname: "ibb.co" }] },
+  images: { remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }, { protocol: "https", hostname: "i.ibb.co" }, { protocol: "https", hostname: "ibb.co" }, { protocol: "https", hostname: "lh3.googleusercontent.com" }] },
   turbopack: {
     rules: {
       "*.css": {

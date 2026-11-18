@@ -28,11 +28,13 @@ MentorLagbe is a production-ready, role-based EdTech marketplace connecting Stud
 - Responsive role-based dashboards and protected navigation
 - Server-side tuition search, filtering, and pagination
 - Student applications, saved tuitions, reviews, and ratings
+- Numbered server-side pagination and accepted-student review eligibility
 - Tutor tuition CRUD, applicant management, and free-plan quota
 - Admin user management, tuition moderation, revenue, and transactions
 - Direct profile and banner image uploads through ImgBB
 - Monthly Stripe Sandbox Pro subscriptions
 - Light and dark themes, toast notifications, loading states, and error pages
+- Optional Google sign-in and sign-up through BetterAuth
 - Reliable Vercel integration through a same-origin API proxy
 
 ## 💳 Stripe Sandbox Demo
@@ -98,6 +100,8 @@ NEXT_PUBLIC_IMGBB_API_KEY=your_imgbb_api_key
 ```
 
 Configure the variables in Vercel and redeploy after any environment change. Admin and quick-test account credentials should be supplied privately in the assignment submission form, never committed to a public repository.
+
+Google OAuth secrets belong only in the server project. The client does not require or expose a Google client secret.
 
 ## 🔗 Project Links
 
