@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { BookOpen, GraduationCap, X } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { GoogleIcon, GitHubIcon } from "@/components/social-icons";
 import { toast } from "sonner";
@@ -37,28 +38,28 @@ export function SocialAuth() {
 
   async function continueWithSocial() {
     if (!provider) return;
-    await startSocial(provider, role);
+    await startSocial(provider, chooseRole ? role : undefined);
   }
 
   const ProviderIcon = provider === "github" ? GitHubIcon : GoogleIcon;
   const providerName = provider === "github" ? "GitHub" : "Google";
   return <>
     <div className="social-auth">
-      <button type="button" className="btn google-btn" disabled={busy} onClick={() => chooseRole ? setProvider("google") : void startSocial("google")}><GoogleIcon />Google</button>
-      <button type="button" className="btn google-btn" disabled={busy} onClick={() => chooseRole ? setProvider("github") : void startSocial("github")}><GitHubIcon />GitHub</button>
+      <button type="button" className="btn google-btn" disabled={busy} onClick={() => setProvider("google")}><GoogleIcon />Google</button>
+      <button type="button" className="btn google-btn" disabled={busy} onClick={() => setProvider("github")}><GitHubIcon />GitHub</button>
     </div>
     {provider && <div className="role-modal-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setProvider(null); }}>
       <section className="role-modal" role="dialog" aria-modal="true" aria-labelledby="social-role-title">
-        <button type="button" className="role-modal-close" aria-label="Close" onClick={() => setProvider(null)}>×</button>
-        <span className="eyebrow">One quick step</span>
-        <h2 id="social-role-title">Choose your role</h2>
-        <p>How would you like to use MentorLagbe?</p>
+        <button type="button" className="role-modal-close" aria-label="Close" onClick={() => setProvider(null)}><X size={19}/></button>
+        <span className="eyebrow">{chooseRole ? "One quick step" : "Confirm your account"}</span>
+        <h2 id="social-role-title">{chooseRole ? "Choose your role" : "Continue as"}</h2>
+        <p>{chooseRole ? "How would you like to use MentorLagbe?" : "Select the account type you expect to sign in with."}</p>
         <div className="role-modal-options" role="radiogroup" aria-label="Account role">
-          <button type="button" role="radio" aria-checked={role === "student"} className={role === "student" ? "active" : ""} onClick={() => setRole("student")}><strong>Student</strong><span>Find and connect with mentors</span></button>
-          <button type="button" role="radio" aria-checked={role === "tutor"} className={role === "tutor" ? "active" : ""} onClick={() => setRole("tutor")}><strong>Tutor</strong><span>Post tuitions and guide learners</span></button>
+          <button type="button" role="radio" aria-checked={role === "student"} className={role === "student" ? "active" : ""} onClick={() => setRole("student")}><GraduationCap/><strong>Student</strong><span>Find and connect with mentors</span></button>
+          <button type="button" role="radio" aria-checked={role === "tutor"} className={role === "tutor" ? "active" : ""} onClick={() => setRole("tutor")}><BookOpen/><strong>Tutor</strong><span>Post tuitions and guide learners</span></button>
         </div>
         <button type="button" className="btn role-modal-continue" disabled={busy} onClick={continueWithSocial}><ProviderIcon />{busy ? "Connecting..." : `Continue with ${providerName}`}</button>
-        <small>Existing accounts keep their current role.</small>
+        <small>{chooseRole ? "Choose carefully. This becomes your new account role." : "We verify your saved role after sign-in. Existing roles cannot be changed here."}</small>
       </section>
     </div>}
   </>;
