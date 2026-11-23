@@ -9,6 +9,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![BetterAuth](https://img.shields.io/badge/BetterAuth-5B4BFF?style=for-the-badge&logo=auth0&logoColor=white)](https://www.better-auth.com/)
 [![Stripe](https://img.shields.io/badge/Stripe_Sandbox-635BFF?style=for-the-badge&logo=stripe&logoColor=white)](https://stripe.com/)
+[![Demo Admin](https://img.shields.io/badge/Demo_Admin-Ready-F2B84B?style=for-the-badge&logo=shield&logoColor=142C2A)](https://mentorlagbe.vercel.app/sign-in)
 
 **Find trusted tutors, publish tuition opportunities, manage applications, and grow through personalized mentorship.**
 
@@ -21,6 +22,21 @@
 ## ✨ Overview
 
 MentorLagbe is a production-ready, role-based EdTech marketplace connecting Students, Tutors, and Admins. Students can discover and apply for approved tuition listings, Tutors can publish and manage learning opportunities, and Admins can moderate the complete platform.
+
+## 🔑 Quick Demo Access
+
+Use this public evaluation account to explore the complete Admin Dashboard. The permanent Super Admin account remains private and protected.
+
+| Access | Value |
+|---|---|
+| **Login page** | [Open MentorLagbe Sign In](https://mentorlagbe.vercel.app/sign-in) |
+| **Email** | `demo@kamrul.us` |
+| **Password** | `MentorDemo#2026!` |
+| **Role** | Admin |
+| **Plan** | Pro |
+
+> [!NOTE]
+> This is a public demonstration account for assignment review. Please do not store personal information in it.
 
 ## 🚀 Key Features
 
