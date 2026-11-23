@@ -23,6 +23,13 @@ export function Navbar() {
     return () => { document.removeEventListener("mousedown", close); document.removeEventListener("keydown", escape); };
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = previousOverflow; };
+  }, [open]);
+
   function closeMenus() { setOpen(false); setProfileOpen(false); }
   return <header className="nav-wrap"><nav className="nav container">
     <Brand />
