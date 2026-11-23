@@ -4,6 +4,7 @@ import{Navbar}from"@/components/navbar";
 import{Footer}from"@/components/footer";
 import"./globals.css";
 import"./production.css";
+import"./responsive-fixes.css";
 
 const siteUrl="https://mentorlagbe.vercel.app";
 const socialImage={url:"/mentorlagbe-og.jpg",width:1200,height:630,alt:"A MentorLagbe tutor guiding a student in a modern learning space"};

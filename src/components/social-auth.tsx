@@ -23,9 +23,13 @@ export function SocialAuth() {
 
   async function startSocial(selectedProvider: Provider, selectedRole?: Role) {
     setBusy(true);
+    const params = new URLSearchParams(window.location.search);
+    const next = params.get("next");
+    const plan = params.get("plan");
+    const loginCallback = next?.startsWith("/") && !next.startsWith("//") ? `${next}${plan ? `?plan=${encodeURIComponent(plan)}` : ""}` : "/auth/social-complete";
     const result = await authClient.signIn.social({
       provider: selectedProvider,
-      callbackURL: "/auth/social-complete",
+      callbackURL: selectedRole ? "/auth/social-complete" : loginCallback,
       ...(selectedRole ? { newUserCallbackURL: `/auth/social-complete?new=1&role=${selectedRole}`, requestSignUp: true } : {}),
     });
     if (result.error) { toast.error(result.error.message || `${selectedProvider} sign-in failed`); setBusy(false); }

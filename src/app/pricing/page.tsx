@@ -18,7 +18,7 @@ export default function Pricing() {
   const [loading, setLoading] = useState<"student" | "tutor" | null>(null);
 
   async function checkout(plan: "student" | "tutor") {
-    if (!user) { toast.error("Please sign in first"); router.push("/sign-in"); return; }
+    if (!user) { toast.error("Please sign in first"); router.push(`/sign-in?next=/pricing&plan=${plan}`); return; }
     if (user.role !== plan) return toast.error(`This plan is for ${plan}s. Your account is a ${user.role}.`);
     setLoading(plan);
     try {
