@@ -30,7 +30,7 @@ export function SocialAuth() {
     const loginCallback = next?.startsWith("/") && !next.startsWith("//") ? `${next}${plan ? `?plan=${encodeURIComponent(plan)}` : ""}` : "/auth/social-complete";
     const result = await authClient.signIn.social({
       provider: selectedProvider,
-      callbackURL: selectedRole ? "/auth/social-complete" : loginCallback,
+      callbackURL: loginCallback,
       ...(selectedRole ? { newUserCallbackURL: `/auth/social-complete?new=1&role=${selectedRole}`, requestSignUp: true } : {}),
     });
     if (result.error) { toast.error(result.error.message || `${selectedProvider} sign-in failed`); setBusy(false); }
@@ -38,7 +38,7 @@ export function SocialAuth() {
 
   async function continueWithSocial() {
     if (!provider) return;
-    await startSocial(provider, chooseRole ? role : undefined);
+    await startSocial(provider, role);
   }
 
   const ProviderIcon = provider === "github" ? GitHubIcon : GoogleIcon;
