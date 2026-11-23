@@ -20,6 +20,7 @@ export default function Pricing() {
   async function checkout(plan: "student" | "tutor") {
     if (!user) { toast.error("Please sign in first"); router.push(`/sign-in?next=/pricing&plan=${plan}`); return; }
     if (user.role !== plan) return toast.error(`This plan is for ${plan}s. Your account is a ${user.role}.`);
+    if (user.plan === "pro") return toast.info("Your Pro plan is already active");
     setLoading(plan);
     try {
       const result = await api<{ url: string }>("/payments/checkout", { method: "POST", body: JSON.stringify({ plan }) });
@@ -30,5 +31,5 @@ export default function Pricing() {
     }
   }
 
-  return <div className="container section pricing-page"><header className="page-hero"><span className="eyebrow">Clear, simple pricing</span><h1>Invest in momentum.</h1><p className="section-sub">Start free. Upgrade only when the extra reach matters.</p></header><div className="pricing-grid pricing-page-grid">{plans.map((plan, index) => <div className={`price-card ${index === 1 ? "featured" : ""}`} key={plan.name}><span className="pill">{plan.text}</span><h3>{plan.name}</h3><div className="amount">{plan.amount}<small>{index ? "/month" : ""}</small></div><ul>{plan.items.map(item => <li key={item}><Check size={16} /> {item}</li>)}</ul>{plan.role ? <button className="btn" disabled={loading !== null} onClick={() => checkout(plan.role)}>{loading === plan.role ? "Opening secure checkout..." : `Subscribe for ${plan.amount}`}</button> : <a className="btn ghost" href="/sign-up">Start free</a>}</div>)}</div></div>;
+  return <div className="container section pricing-page"><header className="page-hero"><span className="eyebrow">Clear, simple pricing</span><h1>Invest in momentum.</h1><p className="section-sub">Start free. Upgrade only when the extra reach matters.</p></header><div className="pricing-grid pricing-page-grid">{plans.map((plan, index) => {const current=Boolean(plan.role&&user?.role===plan.role&&user.plan==="pro");return <div className={`price-card ${index === 1?"featured":""} ${current?"current-plan":""}`} key={plan.name}><span className="pill">{current?"Your active plan":plan.text}</span><h3>{plan.name}</h3><div className="amount">{plan.amount}<small>{index?"/month":""}</small></div><ul>{plan.items.map(item=><li key={item}><Check size={16}/>{item}</li>)}</ul>{plan.role?<button className="btn" disabled={loading!==null||current} onClick={()=>checkout(plan.role)}>{current?"Current plan":loading===plan.role?"Opening secure checkout...":`Subscribe for ${plan.amount}`}</button>:<a className="btn ghost" href="/sign-up">Start free</a>}</div>})}</div></div>;
 }
