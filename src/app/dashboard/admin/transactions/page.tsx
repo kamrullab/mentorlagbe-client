@@ -1,6 +1,8 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
-import { CreditCard, ReceiptText, WalletCards } from "lucide-react";
+import { Check, Copy, CreditCard, ReceiptText, WalletCards } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 import { api } from "@/lib/api";
 
 type Payment = {
@@ -17,10 +19,27 @@ type Payment = {
   paidAt: string;
 };
 
+function Reference({ value }: { value: string }) {
+  const [copied, setCopied] = useState(false);
+  async function copyReference() {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      toast.success("Payment reference copied");
+      window.setTimeout(() => setCopied(false), 1600);
+    } catch {
+      toast.error("Could not copy the reference");
+    }
+  }
+  return <button className="reference-copy" type="button" onClick={copyReference} title="Copy full payment reference" aria-label="Copy payment reference">
+    <code>{value.slice(0,18)}…</code>{copied ? <Check size={15}/> : <Copy size={15}/>}<span>{copied ? "Copied" : "Copy"}</span>
+  </button>;
+}
+
 export default function Page() {
   const { data = [], isLoading, isError } = useQuery({ queryKey: ["admin-transactions"], queryFn: () => api<Payment[]>("/payments/admin/all") });
   const revenue = data.reduce((total, payment) => total + payment.amount, 0);
   if (isLoading) return <div className="empty">Loading transactions...</div>;
   if (isError) return <div className="empty">Unable to load transactions.</div>;
-  return <div className="admin-page"><div className="admin-page-head"><div><span className="eyebrow admin-payment-label"><CreditCard size={15}/>Payments</span><h1 className="section-title">Transactions</h1><p>Monitor successful Stripe Sandbox subscriptions.</p></div><span className="admin-count"><ReceiptText size={17}/>{data.length} records</span></div><div className="admin-summary"><article><WalletCards/><span><small>Total revenue</small><strong>${(revenue/100).toFixed(2)}</strong></span></article><article><CreditCard/><span><small>Successful payments</small><strong>{data.filter(item=>item.paymentStatus==="paid").length}</strong></span></article></div>{!data.length?<div className="empty admin-empty">No transactions yet.</div>:<div className="admin-table-wrap"><table className="data-table admin-table"><thead><tr><th>Customer</th><th>Plan</th><th>Amount</th><th>Status</th><th>Paid</th><th>Reference</th></tr></thead><tbody>{data.map(payment=><tr key={payment._id||payment.stripeSessionId}><td><strong>{payment.userName}</strong><small>{payment.userEmail}</small></td><td><span className="pill">{payment.planName}</span><small>{payment.userRole}</small></td><td className="admin-amount">${(payment.amount/100).toFixed(2)} <small>{payment.currency.toUpperCase()}</small></td><td><span className="payment-status">{payment.paymentStatus}</span></td><td>{new Date(payment.paidAt).toLocaleDateString("en-BD",{day:"2-digit",month:"short",year:"numeric"})}</td><td><code title={payment.stripeSessionId}>{payment.stripeSessionId.slice(0,18)}…</code></td></tr>)}</tbody></table></div>}</div>;
+  return <div className="admin-page"><div className="admin-page-head"><div><span className="eyebrow admin-payment-label"><CreditCard size={15}/>Payments</span><h1 className="section-title">Transactions</h1><p>Monitor successful Stripe Sandbox subscriptions.</p></div><span className="admin-count"><ReceiptText size={17}/>{data.length} records</span></div><div className="admin-summary"><article><WalletCards/><span><small>Total revenue</small><strong>${(revenue/100).toFixed(2)}</strong></span></article><article><CreditCard/><span><small>Successful payments</small><strong>{data.filter(item=>item.paymentStatus==="paid").length}</strong></span></article></div>{!data.length?<div className="empty admin-empty">No transactions yet.</div>:<div className="admin-table-wrap"><table className="data-table admin-table"><thead><tr><th>Customer</th><th>Plan</th><th>Amount</th><th>Status</th><th>Paid</th><th>Reference</th></tr></thead><tbody>{data.map(payment=><tr key={payment._id||payment.stripeSessionId}><td><strong>{payment.userName}</strong><small>{payment.userEmail}</small></td><td><span className="pill">{payment.planName}</span><small>{payment.userRole}</small></td><td className="admin-amount">${(payment.amount/100).toFixed(2)} <small>{payment.currency.toUpperCase()}</small></td><td><span className="payment-status">{payment.paymentStatus}</span></td><td>{new Date(payment.paidAt).toLocaleDateString("en-BD",{day:"2-digit",month:"short",year:"numeric"})}</td><td><Reference value={payment.stripeSessionId}/></td></tr>)}</tbody></table></div>}</div>;
 }
