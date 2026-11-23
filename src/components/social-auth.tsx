@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { GoogleIcon, GitHubIcon } from "@/components/social-icons";
 import { toast } from "sonner";
@@ -8,6 +9,7 @@ type Provider = "google" | "github";
 type Role = "student" | "tutor";
 
 export function SocialAuth() {
+  const chooseRole = usePathname() === "/sign-up";
   const [provider, setProvider] = useState<Provider | null>(null);
   const [role, setRole] = useState<Role>("student");
   const [busy, setBusy] = useState(false);
@@ -19,19 +21,27 @@ export function SocialAuth() {
     return () => window.removeEventListener("keydown", close);
   }, [provider]);
 
+  async function startSocial(selectedProvider: Provider, selectedRole?: Role) {
+    setBusy(true);
+    const result = await authClient.signIn.social({
+      provider: selectedProvider,
+      callbackURL: "/auth/social-complete",
+      ...(selectedRole ? { newUserCallbackURL: `/auth/social-complete?new=1&role=${selectedRole}`, requestSignUp: true } : {}),
+    });
+    if (result.error) { toast.error(result.error.message || `${selectedProvider} sign-in failed`); setBusy(false); }
+  }
+
   async function continueWithSocial() {
     if (!provider) return;
-    setBusy(true);
-    const result = await authClient.signIn.social({ provider, callbackURL: "/auth/social-complete", newUserCallbackURL: `/auth/social-complete?new=1&role=${role}` });
-    if (result.error) { toast.error(result.error.message || `${provider} sign-in failed`); setBusy(false); }
+    await startSocial(provider, role);
   }
 
   const ProviderIcon = provider === "github" ? GitHubIcon : GoogleIcon;
   const providerName = provider === "github" ? "GitHub" : "Google";
   return <>
     <div className="social-auth">
-      <button type="button" className="btn google-btn" onClick={() => setProvider("google")}><GoogleIcon />Google</button>
-      <button type="button" className="btn google-btn" onClick={() => setProvider("github")}><GitHubIcon />GitHub</button>
+      <button type="button" className="btn google-btn" disabled={busy} onClick={() => chooseRole ? setProvider("google") : void startSocial("google")}><GoogleIcon />Google</button>
+      <button type="button" className="btn google-btn" disabled={busy} onClick={() => chooseRole ? setProvider("github") : void startSocial("github")}><GitHubIcon />GitHub</button>
     </div>
     {provider && <div className="role-modal-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setProvider(null); }}>
       <section className="role-modal" role="dialog" aria-modal="true" aria-labelledby="social-role-title">
