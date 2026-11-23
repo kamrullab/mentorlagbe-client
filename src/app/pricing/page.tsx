@@ -1,6 +1,7 @@
 "use client";
 import { Check } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/auth-provider";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
@@ -13,10 +14,11 @@ const plans = [
 
 export default function Pricing() {
   const { user } = useAuth();
+  const router = useRouter();
   const [loading, setLoading] = useState<"student" | "tutor" | null>(null);
 
   async function checkout(plan: "student" | "tutor") {
-    if (!user) return toast.error("Please sign in first");
+    if (!user) { toast.error("Please sign in first"); router.push("/sign-in"); return; }
     if (user.role !== plan) return toast.error(`This plan is for ${plan}s. Your account is a ${user.role}.`);
     setLoading(plan);
     try {
