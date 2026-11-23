@@ -4,3 +4,5 @@
 @media(max-width:600px){.auth-shell{width:calc(100% - 20px);padding:18px 16px}.auth-shell .social-auth{grid-template-columns:1fr 1fr}}
 .auth-shell{width:min(380px,calc(100% - 20px));margin:10px auto;padding:14px 17px}.auth-shell h1{font-size:27px}.auth-shell>p{margin-bottom:7px;line-height:1.35}.auth-shell .social-auth .btn{min-height:35px;padding:6px 10px}.auth-shell .auth-divider{margin:7px 0}.auth-shell .form-group{margin:4px 0}.auth-shell .input,.auth-shell select{height:36px;min-height:36px;padding:5px 9px}.auth-shell>button[type="submit"],.auth-shell>button:not([type]){min-height:36px;padding:7px 12px}.auth-shell>p:last-child{margin-top:6px}
 @media(max-width:600px){.auth-shell{width:calc(100% - 16px);padding:14px}.auth-shell h1{font-size:26px}}
+.nav-links .theme-toggle{width:36px;height:36px;min-width:36px;min-height:36px;padding:0;border-radius:10px}.nav-links .theme-toggle svg{width:16px;height:16px;stroke-width:2}
+@media(max-width:1240px){.nav-links .theme-toggle{width:38px;min-width:38px}}
