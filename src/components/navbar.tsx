@@ -26,7 +26,10 @@ export function Navbar() {
   function closeMenus() { setOpen(false); setProfileOpen(false); }
   return <header className="nav-wrap"><nav className="nav container">
     <Brand />
-    <button className="icon-btn menu" onClick={() => setOpen(!open)} aria-label="Toggle menu">{open ? <X /> : <Menu />}</button>
+    <div className="mobile-nav-actions">
+      <button className="icon-btn mobile-theme-toggle" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>{theme === "dark" ? <Sun /> : <Moon />}</button>
+      <button className="icon-btn menu" onClick={() => setOpen(!open)} aria-label="Toggle menu">{open ? <X /> : <Menu />}</button>
+    </div>
     <div className={`nav-links ${open ? "open" : ""}`}>
       {links.map(([name, href]) => <Link key={name} href={href} onClick={closeMenus}>{name}</Link>)}
       <button className="icon-btn theme-toggle" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label="Toggle theme">{theme === "dark" ? <Sun /> : <Moon />}</button>
